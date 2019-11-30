@@ -8,57 +8,57 @@
                           REQUIRE _printf_s
                           REQUIRE _printf_str
                   Data_sema1 PROC
-;;;95     
-;;;96     void Data_sema1(void *pvParameters)
+;;;90     
+;;;91     void Data_sema1(void *pvParameters)
 000000  e024              B        |L1.76|
                   |L1.2|
-;;;97     {
-;;;98     	while(1)
-;;;99     	{
-;;;100    		//获取二值信号量的值，如果无效则阻塞，第二个参数为阻塞时间
-;;;101    		//xSemaphoreTake(xSemaphore_binary, 0);
-;;;102    		//xSemaphoreTake(xSemaphore_binary, 5000);
-;;;103    		xSemaphoreTake(xSemaphore_binary1, portMAX_DELAY);
+;;;92     {
+;;;93     	while(1)
+;;;94     	{
+;;;95     		//获取二值信号量的值，如果无效则阻塞，第二个参数为阻塞时间
+;;;96     		//xSemaphoreTake(xSemaphore_binary, 0);
+;;;97     		//xSemaphoreTake(xSemaphore_binary, 5000);
+;;;98     		xSemaphoreTake(xSemaphore_binary1, portMAX_DELAY);
 000002  f04f31ff          MOV      r1,#0xffffffff
 000006  4812              LDR      r0,|L1.80|
 000008  6800              LDR      r0,[r0,#0]  ; xSemaphore_binary1
 00000a  f7fffffe          BL       xQueueSemaphoreTake
-;;;104    		printf("welcome to [%s]\r\n",__func__);
+;;;99     		printf("welcome to [%s]\r\n",__func__);
 00000e  4911              LDR      r1,|L1.84|
 000010  a011              ADR      r0,|L1.88|
 000012  f7fffffe          BL       __2printf
-;;;105    		//获得资源的使用权
-;;;106    		xSemaphoreTake(xSemaphore_mutex, portMAX_DELAY); 
+;;;100    		//获得资源的使用权
+;;;101    		xSemaphoreTake(xSemaphore_mutex, portMAX_DELAY); 
 000016  f04f31ff          MOV      r1,#0xffffffff
 00001a  4814              LDR      r0,|L1.108|
 00001c  6800              LDR      r0,[r0,#0]  ; xSemaphore_mutex
 00001e  f7fffffe          BL       xQueueSemaphoreTake
-;;;107    		com_fun(188);
+;;;102    		com_fun(188);
 000022  20bc              MOVS     r0,#0xbc
 000024  f7fffffe          BL       com_fun
-;;;108    		//释放资源的使用权
-;;;109    		xSemaphoreGive(xSemaphore_mutex); 
+;;;103    		//释放资源的使用权
+;;;104    		xSemaphoreGive(xSemaphore_mutex); 
 000028  2300              MOVS     r3,#0
 00002a  461a              MOV      r2,r3
 00002c  4619              MOV      r1,r3
 00002e  480f              LDR      r0,|L1.108|
 000030  6800              LDR      r0,[r0,#0]  ; xSemaphore_mutex
 000032  f7fffffe          BL       xQueueGenericSend
-;;;110    		xSemaphoreGive(xSemaphore_binary2); 
+;;;105    		xSemaphoreGive(xSemaphore_binary2); 
 000036  2300              MOVS     r3,#0
 000038  461a              MOV      r2,r3
 00003a  4619              MOV      r1,r3
 00003c  480c              LDR      r0,|L1.112|
 00003e  6800              LDR      r0,[r0,#0]  ; xSemaphore_binary2
 000040  f7fffffe          BL       xQueueGenericSend
-;;;111    		vTaskDelay(1000);
+;;;106    		vTaskDelay(1000);
 000044  f44f707a          MOV      r0,#0x3e8
 000048  f7fffffe          BL       vTaskDelay
                   |L1.76|
 00004c  e7d9              B        |L1.2|
-;;;112    	}
-;;;113    }	
-;;;114    
+;;;107    	}
+;;;108    }	
+;;;109    
                           ENDP
 
 00004e  0000              DCW      0x0000
@@ -85,48 +85,48 @@
                           REQUIRE _printf_s
                           REQUIRE _printf_str
                   Data_sema2 PROC
-;;;115    
-;;;116    void Data_sema2(void *pvParameters)
+;;;110    
+;;;111    void Data_sema2(void *pvParameters)
 000000  e020              B        |L2.68|
                   |L2.2|
-;;;117    {
-;;;118    	while(1)
-;;;119    	{
-;;;120    		xSemaphoreTake(xSemaphore_binary2, portMAX_DELAY);
+;;;112    {
+;;;113    	while(1)
+;;;114    	{
+;;;115    		xSemaphoreTake(xSemaphore_binary2, portMAX_DELAY);
 000002  f04f31ff          MOV      r1,#0xffffffff
 000006  4810              LDR      r0,|L2.72|
 000008  6800              LDR      r0,[r0,#0]  ; xSemaphore_binary2
 00000a  f7fffffe          BL       xQueueSemaphoreTake
-;;;121    		printf("welcome to [%s]\r\n",__func__);
+;;;116    		printf("welcome to [%s]\r\n",__func__);
 00000e  490f              LDR      r1,|L2.76|
 000010  a00f              ADR      r0,|L2.80|
 000012  f7fffffe          BL       __2printf
-;;;122    		vTaskDelay(50);
+;;;117    		vTaskDelay(50);
 000016  2032              MOVS     r0,#0x32
 000018  f7fffffe          BL       vTaskDelay
-;;;123    		xSemaphoreTake(xSemaphore_mutex, portMAX_DELAY); 
+;;;118    		xSemaphoreTake(xSemaphore_mutex, portMAX_DELAY); 
 00001c  f04f31ff          MOV      r1,#0xffffffff
 000020  4810              LDR      r0,|L2.100|
 000022  6800              LDR      r0,[r0,#0]  ; xSemaphore_mutex
 000024  f7fffffe          BL       xQueueSemaphoreTake
-;;;124    		com_fun(199);
+;;;119    		com_fun(199);
 000028  20c7              MOVS     r0,#0xc7
 00002a  f7fffffe          BL       com_fun
-;;;125    		xSemaphoreGive(xSemaphore_mutex); 
+;;;120    		xSemaphoreGive(xSemaphore_mutex); 
 00002e  2300              MOVS     r3,#0
 000030  461a              MOV      r2,r3
 000032  4619              MOV      r1,r3
 000034  480b              LDR      r0,|L2.100|
 000036  6800              LDR      r0,[r0,#0]  ; xSemaphore_mutex
 000038  f7fffffe          BL       xQueueGenericSend
-;;;126    		vTaskDelay(1000);
+;;;121    		vTaskDelay(1000);
 00003c  f44f707a          MOV      r0,#0x3e8
 000040  f7fffffe          BL       vTaskDelay
                   |L2.68|
 000044  e7dd              B        |L2.2|
-;;;127    	}
-;;;128    }
-;;;129     
+;;;122    	}
+;;;123    }
+;;;124     
                           ENDP
 
 000046  0000              DCW      0x0000
@@ -151,32 +151,32 @@
                           REQUIRE _printf_s
                           REQUIRE _printf_str
                   Data_sema3 PROC
-;;;130    
-;;;131    void Data_sema3(void *pvParameters)
+;;;125    
+;;;126    void Data_sema3(void *pvParameters)
 000000  e00e              B        |L3.32|
                   |L3.2|
-;;;132    {
-;;;133    	while(1)
-;;;134    	{
-;;;135    		printf("welcome to [%s]\r\n",__func__);
+;;;127    {
+;;;128    	while(1)
+;;;129    	{
+;;;130    		printf("welcome to [%s]\r\n",__func__);
 000002  4908              LDR      r1,|L3.36|
 000004  a008              ADR      r0,|L3.40|
 000006  f7fffffe          BL       __2printf
-;;;136    		xSemaphoreGive(xSemaphore_binary1); 
+;;;131    		xSemaphoreGive(xSemaphore_binary1); 
 00000a  2300              MOVS     r3,#0
 00000c  461a              MOV      r2,r3
 00000e  4619              MOV      r1,r3
 000010  480a              LDR      r0,|L3.60|
 000012  6800              LDR      r0,[r0,#0]  ; xSemaphore_binary1
 000014  f7fffffe          BL       xQueueGenericSend
-;;;137    		vTaskDelay(10000);
+;;;132    		vTaskDelay(10000);
 000018  f2427010          MOV      r0,#0x2710
 00001c  f7fffffe          BL       vTaskDelay
                   |L3.32|
 000020  e7ef              B        |L3.2|
-;;;138    	}
-;;;139    }
-;;;140    
+;;;133    	}
+;;;134    }
+;;;135    
                           ENDP
 
 000022  0000              DCW      0x0000
@@ -196,17 +196,17 @@
                           AREA ||i.SendChar||, CODE, READONLY, ALIGN=2
 
                   SendChar PROC
-;;;35     
-;;;36     int SendChar (int ch)  
+;;;34     
+;;;35     int SendChar (int ch)  
 000000  b510              PUSH     {r4,lr}
-;;;37     {
+;;;36     {
 000002  4604              MOV      r4,r0
-;;;38     #if 1
-;;;39     	USART_SendData(USART1,(unsigned char)ch);        
+;;;37     #if 1
+;;;38     	USART_SendData(USART1,(unsigned char)ch);        
 000004  b2e1              UXTB     r1,r4
 000006  4806              LDR      r0,|L4.32|
 000008  f7fffffe          BL       USART_SendData
-;;;40     	while(USART_GetFlagStatus(USART1,USART_FLAG_TC) != SET);
+;;;39     	while(USART_GetFlagStatus(USART1,USART_FLAG_TC) != SET);
 00000c  bf00              NOP      
                   |L4.14|
 00000e  2140              MOVS     r1,#0x40
@@ -214,16 +214,12 @@
 000012  f7fffffe          BL       USART_GetFlagStatus
 000016  2801              CMP      r0,#1
 000018  d1f9              BNE      |L4.14|
-;;;41     #else
-;;;42     	
-;;;43       while (!(USART1->SR & USART_FLAG_TXE)); // USART1
-;;;44       USART1->DR = (ch & 0x1FF);
-;;;45     #endif
-;;;46       return (ch);
+;;;40     #endif
+;;;41       return (ch);
 00001a  4620              MOV      r0,r4
-;;;47     }
+;;;42     }
 00001c  bd10              POP      {r4,pc}
-;;;48     
+;;;43     
                           ENDP
 
 00001e  0000              DCW      0x0000
@@ -233,73 +229,73 @@
                           AREA ||i.USART_Configure||, CODE, READONLY, ALIGN=2
 
                   USART_Configure PROC
-;;;49     
-;;;50     void USART_Configure(void)
+;;;44     
+;;;45     void USART_Configure(void)
 000000  b500              PUSH     {lr}
-;;;51     {
+;;;46     {
 000002  b085              SUB      sp,sp,#0x14
-;;;52     	GPIO_InitTypeDef GPIO_InitStructure;
-;;;53     	USART_InitTypeDef USART_InitStructure;
-;;;54     	
-;;;55     	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_AFIO|RCC_APB2Periph_USART1, ENABLE);
+;;;47     	GPIO_InitTypeDef GPIO_InitStructure;
+;;;48     	USART_InitTypeDef USART_InitStructure;
+;;;49     	
+;;;50     	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_AFIO|RCC_APB2Periph_USART1, ENABLE);
 000004  2101              MOVS     r1,#1
 000006  f2440005          MOV      r0,#0x4005
 00000a  f7fffffe          BL       RCC_APB2PeriphClockCmd
-;;;56     
-;;;57     	GPIO_InitStructure.GPIO_Pin=GPIO_Pin_9;
+;;;51     
+;;;52     	GPIO_InitStructure.GPIO_Pin=GPIO_Pin_9;
 00000e  f44f7000          MOV      r0,#0x200
 000012  f8ad0010          STRH     r0,[sp,#0x10]
-;;;58     	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_AF_PP;//fatal mistake:Out
+;;;53     	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_AF_PP;//fatal mistake:Out
 000016  2018              MOVS     r0,#0x18
 000018  f88d0013          STRB     r0,[sp,#0x13]
-;;;59     	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
+;;;54     	GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
 00001c  2003              MOVS     r0,#3
 00001e  f88d0012          STRB     r0,[sp,#0x12]
-;;;60     	GPIO_Init(GPIOA,&GPIO_InitStructure);//PA9:TX
+;;;55     	GPIO_Init(GPIOA,&GPIO_InitStructure);//PA9:TX
 000022  a904              ADD      r1,sp,#0x10
 000024  4813              LDR      r0,|L5.116|
 000026  f7fffffe          BL       GPIO_Init
-;;;61     	
-;;;62     	GPIO_InitStructure.GPIO_Pin=GPIO_Pin_10;
+;;;56     	
+;;;57     	GPIO_InitStructure.GPIO_Pin=GPIO_Pin_10;
 00002a  f44f6080          MOV      r0,#0x400
 00002e  f8ad0010          STRH     r0,[sp,#0x10]
-;;;63     	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_IN_FLOATING;
+;;;58     	GPIO_InitStructure.GPIO_Mode=GPIO_Mode_IN_FLOATING;
 000032  2004              MOVS     r0,#4
 000034  f88d0013          STRB     r0,[sp,#0x13]
-;;;64     	GPIO_Init(GPIOA,&GPIO_InitStructure);//PA10:RX
+;;;59     	GPIO_Init(GPIOA,&GPIO_InitStructure);//PA10:RX
 000038  a904              ADD      r1,sp,#0x10
 00003a  480e              LDR      r0,|L5.116|
 00003c  f7fffffe          BL       GPIO_Init
-;;;65     
-;;;66     		USART_InitStructure.USART_BaudRate=115200;
+;;;60     
+;;;61     		USART_InitStructure.USART_BaudRate=115200;
 000040  f44f30e1          MOV      r0,#0x1c200
 000044  9000              STR      r0,[sp,#0]
-;;;67     	USART_InitStructure.USART_HardwareFlowControl=USART_HardwareFlowControl_None;
+;;;62     	USART_InitStructure.USART_HardwareFlowControl=USART_HardwareFlowControl_None;
 000046  2000              MOVS     r0,#0
 000048  f8ad000c          STRH     r0,[sp,#0xc]
-;;;68     	USART_InitStructure.USART_Mode=USART_Mode_Tx|USART_Mode_Rx;
+;;;63     	USART_InitStructure.USART_Mode=USART_Mode_Tx|USART_Mode_Rx;
 00004c  200c              MOVS     r0,#0xc
 00004e  f8ad000a          STRH     r0,[sp,#0xa]
-;;;69     	USART_InitStructure.USART_Parity=USART_Parity_No;
+;;;64     	USART_InitStructure.USART_Parity=USART_Parity_No;
 000052  2000              MOVS     r0,#0
 000054  f8ad0008          STRH     r0,[sp,#8]
-;;;70     	USART_InitStructure.USART_StopBits=USART_StopBits_1;
+;;;65     	USART_InitStructure.USART_StopBits=USART_StopBits_1;
 000058  f8ad0006          STRH     r0,[sp,#6]
-;;;71     	USART_InitStructure.USART_WordLength=USART_WordLength_8b;
+;;;66     	USART_InitStructure.USART_WordLength=USART_WordLength_8b;
 00005c  f8ad0004          STRH     r0,[sp,#4]
-;;;72     
-;;;73     	USART_Init(USART1,&USART_InitStructure);
+;;;67     
+;;;68     	USART_Init(USART1,&USART_InitStructure);
 000060  4669              MOV      r1,sp
 000062  4805              LDR      r0,|L5.120|
 000064  f7fffffe          BL       USART_Init
-;;;74     	USART_Cmd(USART1, ENABLE);
+;;;69     	USART_Cmd(USART1, ENABLE);
 000068  2101              MOVS     r1,#1
 00006a  4803              LDR      r0,|L5.120|
 00006c  f7fffffe          BL       USART_Cmd
-;;;75     }
+;;;70     }
 000070  b005              ADD      sp,sp,#0x14
 000072  bd00              POP      {pc}
-;;;76     
+;;;71     
                           ENDP
 
                   |L5.116|
@@ -315,30 +311,30 @@
                           REQUIRE _printf_int_dec
                           REQUIRE _printf_str
                   com_fun PROC
-;;;86     
-;;;87     void com_fun(unsigned int data)
+;;;81     
+;;;82     void com_fun(unsigned int data)
 000000  b510              PUSH     {r4,lr}
-;;;88     {
+;;;83     {
 000002  4604              MOV      r4,r0
-;;;89     	tom_global = data;
+;;;84     	tom_global = data;
 000004  4807              LDR      r0,|L6.36|
 000006  6004              STR      r4,[r0,#0]  ; tom_global
-;;;90     	printf("[%s],tom_global value: %d\r\n",__func__,tom_global);
+;;;85     	printf("[%s],tom_global value: %d\r\n",__func__,tom_global);
 000008  4907              LDR      r1,|L6.40|
 00000a  6802              LDR      r2,[r0,#0]  ; tom_global
 00000c  a007              ADR      r0,|L6.44|
 00000e  f7fffffe          BL       __2printf
-;;;91     	get_task_info(data_transfer_task);
+;;;86     	get_task_info(data_transfer_task);
 000012  480d              LDR      r0,|L6.72|
 000014  6800              LDR      r0,[r0,#0]  ; data_transfer_task
 000016  f7fffffe          BL       get_task_info
-;;;92     	get_task_info(data_pack_task);
+;;;87     	get_task_info(data_pack_task);
 00001a  480c              LDR      r0,|L6.76|
 00001c  6800              LDR      r0,[r0,#0]  ; data_pack_task
 00001e  f7fffffe          BL       get_task_info
-;;;93     }
+;;;88     }
 000022  bd10              POP      {r4,pc}
-;;;94     
+;;;89     
                           ENDP
 
                   |L6.36|
@@ -361,148 +357,103 @@
                           AREA ||i.main||, CODE, READONLY, ALIGN=2
 
                           REQUIRE _printf_percent
-                          REQUIRE _printf_s
-                          REQUIRE _printf_str
                           REQUIRE _printf_d
                           REQUIRE _printf_int_dec
                   main PROC
-;;;206    
-;;;207    int main(void)
+;;;201    
+;;;202    int main(void)
 000000  b510              PUSH     {r4,lr}
-;;;208    {   
+;;;203    {   
 000002  b086              SUB      sp,sp,#0x18
-;;;209    	RCC_ClocksTypeDef RCC_Clocks;
-;;;210    
-;;;211    	USART_Configure();
+;;;204    	RCC_ClocksTypeDef RCC_Clocks;
+;;;205    
+;;;206    	USART_Configure();
 000004  f7fffffe          BL       USART_Configure
-;;;212    
-;;;213    	main_SPI();
+;;;207    
+;;;208    	main_SPI();	
 000008  f7fffffe          BL       main_SPI
-;;;214    	
-;;;215    #ifdef APPLICATION
-;;;216    	printf("welcome to APPLICATION, VERSION is %s.\r\n",APPLICATION_VERSION);
-00000c  a115              ADR      r1,|L7.100|
-00000e  a01f              ADR      r0,|L7.140|
-000010  f7fffffe          BL       __2printf
-;;;217    #endif		
-;;;218    		
-;;;219    	RCC_GetClocksFreq(&RCC_Clocks);
-000014  a801              ADD      r0,sp,#4
-000016  f7fffffe          BL       RCC_GetClocksFreq
-;;;220    		
-;;;221    	//导致任务切换不了，卡死，坑我半天
-;;;222    	//	if(SysTick_Config(SystemCoreClock / 1000))
-;;;223    	//	{ 
-;;;224    	//		/* 出错 */ 
-;;;225    	//		while (1);
-;;;226    	//	}
-;;;227    		
-;;;228    	printf("\r\nSYSCLK_Frequency = %d MHz\n",RCC_Clocks.SYSCLK_Frequency/1000000);
-00001a  4927              LDR      r1,|L7.184|
-00001c  9801              LDR      r0,[sp,#4]
-00001e  fbb0f4f1          UDIV     r4,r0,r1
-000022  4621              MOV      r1,r4
-000024  a025              ADR      r0,|L7.188|
-000026  f7fffffe          BL       __2printf
-;;;229    	printf("\r\nHCLK_Frequency = %d MHz\n",RCC_Clocks.HCLK_Frequency/1000000);
-00002a  4923              LDR      r1,|L7.184|
-00002c  9802              LDR      r0,[sp,#8]
-00002e  fbb0f4f1          UDIV     r4,r0,r1
-000032  4621              MOV      r1,r4
-000034  a029              ADR      r0,|L7.220|
-000036  f7fffffe          BL       __2printf
-;;;230    	printf("\r\nPCLK1_Frequency = %d MHz\n",RCC_Clocks.PCLK1_Frequency/1000000);
-00003a  491f              LDR      r1,|L7.184|
-00003c  9803              LDR      r0,[sp,#0xc]
-00003e  fbb0f4f1          UDIV     r4,r0,r1
-000042  4621              MOV      r1,r4
-000044  a02c              ADR      r0,|L7.248|
-000046  f7fffffe          BL       __2printf
-;;;231    	printf("\r\nPCLK2_Frequency = %d MHz\n",RCC_Clocks.PCLK2_Frequency/1000000);
-00004a  491b              LDR      r1,|L7.184|
-00004c  9804              LDR      r0,[sp,#0x10]
-00004e  fbb0f4f1          UDIV     r4,r0,r1
-000052  4621              MOV      r1,r4
-000054  a02f              ADR      r0,|L7.276|
-000056  f7fffffe          BL       __2printf
-;;;232    		
-;;;233    	
-;;;234    #ifdef 	APPLICATION
-;;;235    	main_FreeRTos();
-00005a  f7fffffe          BL       main_FreeRTos
-;;;236    #endif		
-;;;237    }
-00005e  2000              MOVS     r0,#0
-000060  b006              ADD      sp,sp,#0x18
-000062  bd10              POP      {r4,pc}
-;;;238    
+;;;209    		
+;;;210    	RCC_GetClocksFreq(&RCC_Clocks);
+00000c  a801              ADD      r0,sp,#4
+00000e  f7fffffe          BL       RCC_GetClocksFreq
+;;;211    		
+;;;212    	printf("\r\nSYSCLK_Frequency = %d MHz\n",RCC_Clocks.SYSCLK_Frequency/1000000);
+000012  4912              LDR      r1,|L7.92|
+000014  9801              LDR      r0,[sp,#4]
+000016  fbb0f4f1          UDIV     r4,r0,r1
+00001a  4621              MOV      r1,r4
+00001c  a010              ADR      r0,|L7.96|
+00001e  f7fffffe          BL       __2printf
+;;;213    	printf("\r\nHCLK_Frequency = %d MHz\n",RCC_Clocks.HCLK_Frequency/1000000);
+000022  490e              LDR      r1,|L7.92|
+000024  9802              LDR      r0,[sp,#8]
+000026  fbb0f4f1          UDIV     r4,r0,r1
+00002a  4621              MOV      r1,r4
+00002c  a014              ADR      r0,|L7.128|
+00002e  f7fffffe          BL       __2printf
+;;;214    	printf("\r\nPCLK1_Frequency = %d MHz\n",RCC_Clocks.PCLK1_Frequency/1000000);
+000032  490a              LDR      r1,|L7.92|
+000034  9803              LDR      r0,[sp,#0xc]
+000036  fbb0f4f1          UDIV     r4,r0,r1
+00003a  4621              MOV      r1,r4
+00003c  a017              ADR      r0,|L7.156|
+00003e  f7fffffe          BL       __2printf
+;;;215    	printf("\r\nPCLK2_Frequency = %d MHz\n",RCC_Clocks.PCLK2_Frequency/1000000);
+000042  4906              LDR      r1,|L7.92|
+000044  9804              LDR      r0,[sp,#0x10]
+000046  fbb0f4f1          UDIV     r4,r0,r1
+00004a  4621              MOV      r1,r4
+00004c  a01a              ADR      r0,|L7.184|
+00004e  f7fffffe          BL       __2printf
+;;;216    		
+;;;217    	main_FreeRTos();	
+000052  f7fffffe          BL       main_FreeRTos
+;;;218    }
+000056  2000              MOVS     r0,#0
+000058  b006              ADD      sp,sp,#0x18
+00005a  bd10              POP      {r4,pc}
+;;;219    
                           ENDP
 
-                  |L7.100|
-000064  53544d33          DCB      "STM32F103VET6_APPLICATION_V_11_20191007",0
-000068  32463130
-00006c  33564554
-000070  365f4150
-000074  504c4943
-000078  4154494f
-00007c  4e5f565f
-000080  31315f32
-000084  30313931
-000088  30303700
-                  |L7.140|
-00008c  77656c63          DCB      "welcome to APPLICATION, VERSION is %s.\r\n",0
-000090  6f6d6520
-000094  746f2041
-000098  50504c49
-00009c  43415449
-0000a0  4f4e2c20
-0000a4  56455253
-0000a8  494f4e20
-0000ac  69732025
-0000b0  732e0d0a
-0000b4  00      
-0000b5  00                DCB      0
-0000b6  00                DCB      0
-0000b7  00                DCB      0
-                  |L7.184|
+                  |L7.92|
                           DCD      0x000f4240
-                  |L7.188|
-0000bc  0d0a5359          DCB      "\r\nSYSCLK_Frequency = %d MHz\n",0
-0000c0  53434c4b
-0000c4  5f467265
-0000c8  7175656e
-0000cc  6379203d
-0000d0  20256420
-0000d4  4d487a0a
-0000d8  00      
-0000d9  00                DCB      0
-0000da  00                DCB      0
-0000db  00                DCB      0
-                  |L7.220|
-0000dc  0d0a4843          DCB      "\r\nHCLK_Frequency = %d MHz\n",0
-0000e0  4c4b5f46
-0000e4  72657175
-0000e8  656e6379
-0000ec  203d2025
-0000f0  64204d48
-0000f4  7a0a00  
-0000f7  00                DCB      0
-                  |L7.248|
-0000f8  0d0a5043          DCB      "\r\nPCLK1_Frequency = %d MHz\n",0
-0000fc  4c4b315f
-000100  46726571
-000104  75656e63
-000108  79203d20
-00010c  2564204d
-000110  487a0a00
-                  |L7.276|
-000114  0d0a5043          DCB      "\r\nPCLK2_Frequency = %d MHz\n",0
-000118  4c4b325f
-00011c  46726571
-000120  75656e63
-000124  79203d20
-000128  2564204d
-00012c  487a0a00
+                  |L7.96|
+000060  0d0a5359          DCB      "\r\nSYSCLK_Frequency = %d MHz\n",0
+000064  53434c4b
+000068  5f467265
+00006c  7175656e
+000070  6379203d
+000074  20256420
+000078  4d487a0a
+00007c  00      
+00007d  00                DCB      0
+00007e  00                DCB      0
+00007f  00                DCB      0
+                  |L7.128|
+000080  0d0a4843          DCB      "\r\nHCLK_Frequency = %d MHz\n",0
+000084  4c4b5f46
+000088  72657175
+00008c  656e6379
+000090  203d2025
+000094  64204d48
+000098  7a0a00  
+00009b  00                DCB      0
+                  |L7.156|
+00009c  0d0a5043          DCB      "\r\nPCLK1_Frequency = %d MHz\n",0
+0000a0  4c4b315f
+0000a4  46726571
+0000a8  75656e63
+0000ac  79203d20
+0000b0  2564204d
+0000b4  487a0a00
+                  |L7.184|
+0000b8  0d0a5043          DCB      "\r\nPCLK2_Frequency = %d MHz\n",0
+0000bc  4c4b325f
+0000c0  46726571
+0000c4  75656e63
+0000c8  79203d20
+0000cc  2564204d
+0000d0  487a0a00
 
                           AREA ||i.main_FreeRTos||, CODE, READONLY, ALIGN=2
 
@@ -510,41 +461,41 @@
                           REQUIRE _printf_s
                           REQUIRE _printf_str
                   main_FreeRTos PROC
-;;;141    
-;;;142    int main_FreeRTos(void)
+;;;136    
+;;;137    int main_FreeRTos(void)
 000000  b51c              PUSH     {r2-r4,lr}
-;;;143    {  
-;;;144    	BaseType_t tmp;
-;;;145    
-;;;146    	printf("welcome to [%s]\r\n",__func__);
+;;;138    {  
+;;;139    	BaseType_t tmp;
+;;;140    
+;;;141    	printf("welcome to [%s]\r\n",__func__);
 000002  4937              LDR      r1,|L8.224|
 000004  a037              ADR      r0,|L8.228|
 000006  f7fffffe          BL       __2printf
-;;;147    
-;;;148    	/* 创建互斥信号量 */  
-;;;149        xSemaphore_mutex = xSemaphoreCreateMutex(); 
+;;;142    
+;;;143    	/* 创建互斥信号量 */  
+;;;144        xSemaphore_mutex = xSemaphoreCreateMutex(); 
 00000a  2001              MOVS     r0,#1
 00000c  f7fffffe          BL       xQueueCreateMutex
 000010  4939              LDR      r1,|L8.248|
 000012  6008              STR      r0,[r1,#0]  ; xSemaphore_mutex
-;;;150    
-;;;151    	/* 创建二值信号量 */  
-;;;152        xSemaphore_binary1 = xSemaphoreCreateBinary(); 
+;;;145    
+;;;146    	/* 创建二值信号量 */  
+;;;147        xSemaphore_binary1 = xSemaphoreCreateBinary(); 
 000014  2203              MOVS     r2,#3
 000016  2100              MOVS     r1,#0
 000018  2001              MOVS     r0,#1
 00001a  f7fffffe          BL       xQueueGenericCreate
 00001e  4937              LDR      r1,|L8.252|
 000020  6008              STR      r0,[r1,#0]  ; xSemaphore_binary1
-;;;153    	xSemaphore_binary2 = xSemaphoreCreateBinary(); 
+;;;148    	xSemaphore_binary2 = xSemaphoreCreateBinary(); 
 000022  2203              MOVS     r2,#3
 000024  2100              MOVS     r1,#0
 000026  2001              MOVS     r0,#1
 000028  f7fffffe          BL       xQueueGenericCreate
 00002c  4934              LDR      r1,|L8.256|
 00002e  6008              STR      r0,[r1,#0]  ; xSemaphore_binary2
-;;;154    
-;;;155    	tmp = xTaskCreate(Data_sema1, "Data_pack", 500, NULL ,1, &data_pack_task);
+;;;149    
+;;;150    	tmp = xTaskCreate(Data_sema1, "Data_pack", 500, NULL ,1, &data_pack_task);
 000030  4834              LDR      r0,|L8.260|
 000032  2101              MOVS     r1,#1
 000034  2300              MOVS     r3,#0
@@ -554,25 +505,25 @@
 000040  4834              LDR      r0,|L8.276|
 000042  f7fffffe          BL       xTaskCreate
 000046  4604              MOV      r4,r0
-;;;156    	if(tmp != pdPASS)
+;;;151    	if(tmp != pdPASS)
 000048  2c01              CMP      r4,#1
 00004a  d003              BEQ      |L8.84|
-;;;157    	{
-;;;158    		printf("Data_pack task create failed\r\n");
+;;;152    	{
+;;;153    		printf("Data_pack task create failed\r\n");
 00004c  a032              ADR      r0,|L8.280|
 00004e  f7fffffe          BL       __2printf
 000052  e002              B        |L8.90|
                   |L8.84|
-;;;159    	}
-;;;160    	else
-;;;161    	{
-;;;162    		printf("Data_pack task create successfully\r\n");
+;;;154    	}
+;;;155    	else
+;;;156    	{
+;;;157    		printf("Data_pack task create successfully\r\n");
 000054  a038              ADR      r0,|L8.312|
 000056  f7fffffe          BL       __2printf
                   |L8.90|
-;;;163    	}
-;;;164    	
-;;;165    	tmp = xTaskCreate(Data_sema2, "Data_transfer", 500, NULL ,2, &data_transfer_task);
+;;;158    	}
+;;;159    	
+;;;160    	tmp = xTaskCreate(Data_sema2, "Data_transfer", 500, NULL ,2, &data_transfer_task);
 00005a  4841              LDR      r0,|L8.352|
 00005c  2102              MOVS     r1,#2
 00005e  2300              MOVS     r3,#0
@@ -582,26 +533,26 @@
 00006a  4842              LDR      r0,|L8.372|
 00006c  f7fffffe          BL       xTaskCreate
 000070  4604              MOV      r4,r0
-;;;166    	if(tmp != pdPASS)
+;;;161    	if(tmp != pdPASS)
 000072  2c01              CMP      r4,#1
 000074  d003              BEQ      |L8.126|
-;;;167    	{
-;;;168    		printf("Data_transfer task create failed\r\n");
+;;;162    	{
+;;;163    		printf("Data_transfer task create failed\r\n");
 000076  a040              ADR      r0,|L8.376|
 000078  f7fffffe          BL       __2printf
 00007c  e002              B        |L8.132|
                   |L8.126|
-;;;169    	}
-;;;170    	else
-;;;171    	{
-;;;172    		printf("Data_transfer task create successfully\r\n");
+;;;164    	}
+;;;165    	else
+;;;166    	{
+;;;167    		printf("Data_transfer task create successfully\r\n");
 00007e  a047              ADR      r0,|L8.412|
 000080  f7fffffe          BL       __2printf
                   |L8.132|
-;;;173    	}
-;;;174    	
-;;;175    #if 1	
-;;;176    	tmp = xTaskCreate(Data_sema3, "Data_sema", 500, NULL ,3, &data_sema);
+;;;168    	}
+;;;169    	
+;;;170    #if 1	
+;;;171    	tmp = xTaskCreate(Data_sema3, "Data_sema", 500, NULL ,3, &data_sema);
 000084  4850              LDR      r0,|L8.456|
 000086  2103              MOVS     r1,#3
 000088  2300              MOVS     r3,#0
@@ -611,26 +562,26 @@
 000094  4850              LDR      r0,|L8.472|
 000096  f7fffffe          BL       xTaskCreate
 00009a  4604              MOV      r4,r0
-;;;177    	if(tmp != pdPASS)
+;;;172    	if(tmp != pdPASS)
 00009c  2c01              CMP      r4,#1
 00009e  d003              BEQ      |L8.168|
-;;;178    	{
-;;;179    		printf("Data_sema task create failed\r\n");
+;;;173    	{
+;;;174    		printf("Data_sema task create failed\r\n");
 0000a0  a04e              ADR      r0,|L8.476|
 0000a2  f7fffffe          BL       __2printf
 0000a6  e002              B        |L8.174|
                   |L8.168|
-;;;180    	}
-;;;181    	else
-;;;182    	{
-;;;183    		printf("Data_sema task create successfully\r\n");
+;;;175    	}
+;;;176    	else
+;;;177    	{
+;;;178    		printf("Data_sema task create successfully\r\n");
 0000a8  a054              ADR      r0,|L8.508|
 0000aa  f7fffffe          BL       __2printf
                   |L8.174|
-;;;184    	}
-;;;185    #endif
-;;;186    		
-;;;187        test1Timer_Handle = xTimerCreate((const char*)"test1Timer_Handle",
+;;;179    	}
+;;;180    #endif
+;;;181    		
+;;;182        test1Timer_Handle = xTimerCreate((const char*)"test1Timer_Handle",
 0000ae  485d              LDR      r0,|L8.548|
 0000b0  2301              MOVS     r3,#1
 0000b2  461a              MOV      r2,r3
@@ -640,37 +591,37 @@
 0000bc  f7fffffe          BL       xTimerCreate
 0000c0  495e              LDR      r1,|L8.572|
 0000c2  6008              STR      r0,[r1,#0]  ; test1Timer_Handle
-;;;188        							(TickType_t	)2000,
-;;;189        							(UBaseType_t)pdTRUE,
-;;;190        							(void*)1,
-;;;191        							(TimerCallbackFunction_t)test1Timer_HandleCallback);  
-;;;192        if (test1Timer_Handle == NULL)
+;;;183        							(TickType_t	)2000,
+;;;184        							(UBaseType_t)pdTRUE,
+;;;185        							(void*)1,
+;;;186        							(TimerCallbackFunction_t)test1Timer_HandleCallback);  
+;;;187        if (test1Timer_Handle == NULL)
 0000c4  4608              MOV      r0,r1
 0000c6  6800              LDR      r0,[r0,#0]  ; test1Timer_Handle
 0000c8  b918              CBNZ     r0,|L8.210|
-;;;193        {
-;;;194    		printf("Failed to test1Timer_Handle\r\n");
+;;;188        {
+;;;189    		printf("Failed to test1Timer_Handle\r\n");
 0000ca  a05d              ADR      r0,|L8.576|
 0000cc  f7fffffe          BL       __2printf
 0000d0  e002              B        |L8.216|
                   |L8.210|
-;;;195        }
-;;;196        else
-;;;197        {
-;;;198    //		xTimerStart(test1Timer_Handle,mainDONT_BLOCK);
-;;;199    		printf("success to test1Timer_Handle\r\n");
+;;;190        }
+;;;191        else
+;;;192        {
+;;;193    //		xTimerStart(test1Timer_Handle,mainDONT_BLOCK);
+;;;194    		printf("success to test1Timer_Handle\r\n");
 0000d2  a063              ADR      r0,|L8.608|
 0000d4  f7fffffe          BL       __2printf
                   |L8.216|
-;;;200        }
-;;;201    		
-;;;202        vTaskStartScheduler();
+;;;195        }
+;;;196    		
+;;;197        vTaskStartScheduler();
 0000d8  f7fffffe          BL       vTaskStartScheduler
-;;;203        return 0;
+;;;198        return 0;
 0000dc  2000              MOVS     r0,#0
-;;;204    }
+;;;199    }
 0000de  bd1c              POP      {r2-r4,pc}
-;;;205    
+;;;200    
                           ENDP
 
                   |L8.224|
@@ -834,18 +785,18 @@
                           REQUIRE _printf_s
                           REQUIRE _printf_str
                   test1Timer_HandleCallback PROC
-;;;77     
-;;;78     void test1Timer_HandleCallback(TimerHandle_t xTimer)
+;;;72     
+;;;73     void test1Timer_HandleCallback(TimerHandle_t xTimer)
 000000  b510              PUSH     {r4,lr}
-;;;79     {			
+;;;74     {			
 000002  4604              MOV      r4,r0
-;;;80     	printf("welcome to [%s]\r\n",__func__);
+;;;75     	printf("welcome to [%s]\r\n",__func__);
 000004  4902              LDR      r1,|L9.16|
 000006  a003              ADR      r0,|L9.20|
 000008  f7fffffe          BL       __2printf
-;;;81     }
+;;;76     }
 00000c  bd10              POP      {r4,pc}
-;;;82     
+;;;77     
                           ENDP
 
 00000e  0000              DCW      0x0000

@@ -8519,8 +8519,8 @@ Nextern void get_task_info(TaskHandle_t task);
 N
 N
 N
-W ".\User\include\Tom_Common_Api.h" 17 7 last line of file ends without a newline
 N#endif
+N
 L 2 "User\source\Tom_Common_Api.c" 2
 N
 N

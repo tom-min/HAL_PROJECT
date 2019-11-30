@@ -15,7 +15,6 @@
 #include "use_config.h"
 
 #include "ff.h"
-#include "spi_flash.h"
 #include "hal_spi_flash.h"
 
 
@@ -38,10 +37,6 @@ int SendChar (int ch)
 #if 1
 	USART_SendData(USART1,(unsigned char)ch);        
 	while(USART_GetFlagStatus(USART1,USART_FLAG_TC) != SET);
-#else
-	
-  while (!(USART1->SR & USART_FLAG_TXE)); // USART1
-  USART1->DR = (ch & 0x1FF);
 #endif
   return (ch);
 }
@@ -210,29 +205,16 @@ int main(void)
 
 	USART_Configure();
 
-	main_SPI();
-	
-#ifdef APPLICATION
-	printf("welcome to APPLICATION, VERSION is %s.\r\n",APPLICATION_VERSION);
-#endif		
+	main_SPI();	
 		
 	RCC_GetClocksFreq(&RCC_Clocks);
-		
-	//导致任务切换不了，卡死，坑我半天
-	//	if(SysTick_Config(SystemCoreClock / 1000))
-	//	{ 
-	//		/* 出错 */ 
-	//		while (1);
-	//	}
 		
 	printf("\r\nSYSCLK_Frequency = %d MHz\n",RCC_Clocks.SYSCLK_Frequency/1000000);
 	printf("\r\nHCLK_Frequency = %d MHz\n",RCC_Clocks.HCLK_Frequency/1000000);
 	printf("\r\nPCLK1_Frequency = %d MHz\n",RCC_Clocks.PCLK1_Frequency/1000000);
 	printf("\r\nPCLK2_Frequency = %d MHz\n",RCC_Clocks.PCLK2_Frequency/1000000);
 		
-	
-#ifdef 	APPLICATION
-	main_FreeRTos();
-#endif		
+	main_FreeRTos();	
 }
+
 

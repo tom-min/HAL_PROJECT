@@ -41220,8 +41220,8 @@ Nextern void get_task_info(TaskHandle_t task);
 N
 N
 N
-W ".\User\include\Tom_Common_Api.h" 17 7 last line of file ends without a newline
 N#endif
+N
 L 15 "main\main.c" 2
 N#include "use_config.h"
 L 1 ".\User\include\use_config.h" 1
@@ -42091,6 +42091,12 @@ N
 N
 N#endif /* _FATFS */
 L 18 "main\main.c" 2
+N#include "hal_spi_flash.h"
+L 1 ".\User\hal\hal_spi_flash.h" 1
+N#ifndef __HAL_SPI_FLASH_
+N#define __HAL_SPI_FLASH_
+N
+N
 N#include "spi_flash.h"
 L 1 ".\User\SPI_FLASH\spi_flash.h" 1
 N/**
@@ -42219,14 +42225,7 @@ N#endif /* __SPI_FLASH_H */
 N
 N
 N/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-L 19 "main\main.c" 2
-N#include "hal_spi_flash.h"
-L 1 ".\User\hal\hal_spi_flash.h" 1
-N#ifndef __HAL_SPI_FLASH_
-N#define __HAL_SPI_FLASH_
-N
-N
-N#include "spi_flash.h"
+L 6 ".\User\hal\hal_spi_flash.h" 2
 N#include "stdint.h"
 N
 N
@@ -42262,7 +42261,7 @@ N
 N#endif
 N
 N
-L 20 "main\main.c" 2
+L 19 "main\main.c" 2
 N
 N
 NTaskHandle_t  data_pack_task;
@@ -42289,10 +42288,6 @@ N	USART_SendData(USART1,(unsigned char)ch);
 X	USART_SendData(((USART_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3800)),(unsigned char)ch);        
 N	while(USART_GetFlagStatus(USART1,USART_FLAG_TC) != SET);
 X	while(USART_GetFlagStatus(((USART_TypeDef *) ((((uint32_t)0x40000000) + 0x10000) + 0x3800)),((uint16_t)0x0040)) != SET);
-N#else
-S	
-S  while (!(USART1->SR & USART_FLAG_TXE)); // USART1
-S  USART1->DR = (ch & 0x1FF);
 N#endif
 N  return (ch);
 N}
@@ -42492,30 +42487,16 @@ N	RCC_ClocksTypeDef RCC_Clocks;
 N
 N	USART_Configure();
 N
-N	main_SPI();
-N	
-N#ifdef APPLICATION
-N	printf("welcome to APPLICATION, VERSION is %s.\r\n",APPLICATION_VERSION);
-X	printf("welcome to APPLICATION, VERSION is %s.\r\n","STM32F103VET6_APPLICATION_V_11_20191007");
-N#endif		
+N	main_SPI();	
 N		
 N	RCC_GetClocksFreq(&RCC_Clocks);
-N		
-N	//导致任务切换不了，卡死，坑我半天
-N	//	if(SysTick_Config(SystemCoreClock / 1000))
-N	//	{ 
-N	//		/* 出错 */ 
-N	//		while (1);
-N	//	}
 N		
 N	printf("\r\nSYSCLK_Frequency = %d MHz\n",RCC_Clocks.SYSCLK_Frequency/1000000);
 N	printf("\r\nHCLK_Frequency = %d MHz\n",RCC_Clocks.HCLK_Frequency/1000000);
 N	printf("\r\nPCLK1_Frequency = %d MHz\n",RCC_Clocks.PCLK1_Frequency/1000000);
 N	printf("\r\nPCLK2_Frequency = %d MHz\n",RCC_Clocks.PCLK2_Frequency/1000000);
 N		
-N	
-N#ifdef 	APPLICATION
-N	main_FreeRTos();
-N#endif		
+N	main_FreeRTos();	
 N}
+N
 N

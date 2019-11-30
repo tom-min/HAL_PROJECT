@@ -49,5 +49,5 @@
 .\objects\main.o: .\fatfs\ff.h
 .\objects\main.o: .\fatfs\integer.h
 .\objects\main.o: .\fatfs\ffconf.h
-.\objects\main.o: .\User\SPI_FLASH\spi_flash.h
 .\objects\main.o: .\User\hal\hal_spi_flash.h
+.\objects\main.o: .\User\SPI_FLASH\spi_flash.h
