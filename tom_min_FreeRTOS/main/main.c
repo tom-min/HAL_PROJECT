@@ -233,6 +233,7 @@ int main(void)
 	
 #ifdef 	APPLICATION
 	main_FreeRTos();
+	printf("hahaha");
 #endif		
 }
 
