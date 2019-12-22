@@ -210,7 +210,7 @@ int main(void)
 
 	USART_Configure();
 
-	main_SPI();
+	//main_SPI();
 	
 #ifdef APPLICATION
 	printf("welcome to APPLICATION, VERSION is %s.\r\n",APPLICATION_VERSION);
