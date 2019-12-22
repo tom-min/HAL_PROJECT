@@ -216,7 +216,7 @@ int main(void)
 	printf("welcome to APPLICATION, VERSION is %s.\r\n",APPLICATION_VERSION);
 #endif		
 		
-	RCC_GetClocksFreq(&RCC_Clocks);
+//	RCC_GetClocksFreq(&RCC_Clocks);
 		
 	//导致任务切换不了，卡死，坑我半天
 	//	if(SysTick_Config(SystemCoreClock / 1000))
